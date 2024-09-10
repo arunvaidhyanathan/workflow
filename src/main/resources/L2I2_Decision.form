@@ -1,0 +1,35 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "1fc7bc3"
+  },
+  "schemaVersion": 16,
+  "id": "L2I2_Review_Form",
+  "components": [
+    {
+      "values": [
+        {
+          "label": "False Match",
+          "value": "false"
+        },
+        {
+          "label": "Match",
+          "value": "true"
+        }
+      ],
+      "label": "L2I2 Decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_0f1gqb7",
+        "columns": null
+      },
+      "id": "Field_1uu4q23",
+      "key": "L2I2_Decision",
+      "description": "Level 2 Investigator 2 Decision",
+      "defaultValue": "<none>"
+    }
+  ],
+  "type": "default"
+}

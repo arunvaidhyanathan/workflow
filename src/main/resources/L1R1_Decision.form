@@ -1,0 +1,35 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "1fc7bc3"
+  },
+  "schemaVersion": 16,
+  "id": "L1R1_Review_Form",
+  "components": [
+    {
+      "values": [
+        {
+          "label": "False Match",
+          "value": "false"
+        },
+        {
+          "label": "Match",
+          "value": "true"
+        }
+      ],
+      "label": "L1R1 Decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_0f1gqb7",
+        "columns": null
+      },
+      "id": "Field_1uu4q23",
+      "key": "L1R1_Decision",
+      "description": "Level 1 Reviewer 1 Decision",
+      "defaultValue": "<none>"
+    }
+  ],
+  "type": "default"
+}
