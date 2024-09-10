@@ -7,6 +7,7 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.slf4j.Logger;
@@ -48,44 +49,56 @@ public class WorkflowController {
     }
 
     @PostMapping("/generate-token-and-fetch-tasks")
-public ResponseEntity<String> generateTokenAndFetchTasks() {
-    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-        // Generate JWT
-        HttpPost tokenRequest = new HttpPost("http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token");
-        tokenRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        StringEntity tokenParams = new StringEntity("client_id=demo-app&client_secret=NUeI6HT8Ce43uCJClwHfXjv3YYL1Xk30&grant_type=client_credentials");
-        tokenRequest.setEntity(tokenParams);
+    public ResponseEntity<String> generateTokenAndFetchTasks() {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            // Generate JWT
+            HttpPost tokenRequest = new HttpPost("http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token");
+            tokenRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            StringEntity tokenParams = new StringEntity("client_id=demo-app&client_secret=AdDfPHtFfn8mcfo1GTToSXhwwV4KN0Nk&grant_type=client_credentials");
+            tokenRequest.setEntity(tokenParams);
 
-        try (CloseableHttpResponse tokenResponse = httpClient.execute(tokenRequest)) {
-            String tokenResponseBody = EntityUtils.toString(tokenResponse.getEntity());
-            // Extract the token from the response (assuming JSON response)
-            String token = extractTokenFromResponse(tokenResponseBody);
+            try (CloseableHttpResponse tokenResponse = httpClient.execute(tokenRequest)) {
+                String tokenResponseBody = EntityUtils.toString(tokenResponse.getEntity());
+                String token = extractTokenFromResponse(tokenResponseBody);
 
-            // Use the token to fetch tasks
-            HttpPost taskRequest = new HttpPost("http://localhost:8082/v1/tasks/search");
-            taskRequest.setHeader("Authorization", "Bearer " + token);
-            try (CloseableHttpResponse taskResponse = httpClient.execute(taskRequest)) {
-                String taskResponseBody = EntityUtils.toString(taskResponse.getEntity());
-                System.out.println("Task Response Body: " + taskResponseBody);
+                // Use the token to fetch tasks
+                HttpPost taskRequest = new HttpPost("http://localhost:8082/v1/tasks/search");
+                taskRequest.setHeader("Authorization", "Bearer " + token);
+                try (CloseableHttpResponse taskResponse = httpClient.execute(taskRequest)) {
+                    String taskResponseBody = EntityUtils.toString(taskResponse.getEntity());
+                    System.out.println("Task Response Body: " + taskResponseBody);
 
-                // Extract task ID from the response
-                String taskId = extractTaskIdFromResponse(taskResponseBody);
+                    String taskId = extractTaskIdFromResponse(taskResponseBody);
 
-                // Assign the task
-                HttpPatch assignRequest = new HttpPatch("http://localhost:8082/v1/tasks/" + taskId + "/assign");
-                assignRequest.setHeader("Authorization", "Bearer " + token);
-                try (CloseableHttpResponse assignResponse = httpClient.execute(assignRequest)) {
-                    String assignResponseBody = EntityUtils.toString(assignResponse.getEntity());
-                    System.out.println("Assign Response Body: " + assignResponseBody);
-                    return ResponseEntity.ok(assignResponseBody);
+                    // Assign the task
+                    HttpPatch assignRequest = new HttpPatch("http://localhost:8082/v1/tasks/" + taskId + "/assign");
+                    assignRequest.setHeader("Authorization", "Bearer " + token);
+                    ContentType assignContentType = ContentType.APPLICATION_JSON;
+                    StringEntity assignBody = new StringEntity("{\n  \"assignee\": \"string\",\n  \"allowOverrideAssignment\": true\n}", assignContentType);
+                    assignRequest.setEntity(assignBody);
+                    try (CloseableHttpResponse assignResponse = httpClient.execute(assignRequest)) {
+                        String assignResponseBody = EntityUtils.toString(assignResponse.getEntity());
+                        System.out.println("Assign Response Body: " + assignResponseBody);
+
+                        // Complete the task
+                        HttpPatch completeRequest = new HttpPatch("http://localhost:8082/v1/tasks/" + taskId + "/complete");
+                        completeRequest.setHeader("Authorization", "Bearer " + token);
+                        ContentType completeContentType = ContentType.APPLICATION_JSON;
+                        StringEntity completeBody = new StringEntity("{\n  \"name\": \"Match\",\n  \"allowOverrideAssignment\": true\n}", completeContentType);
+                        completeRequest.setEntity(completeBody);
+                        try (CloseableHttpResponse completeResponse = httpClient.execute(completeRequest)) {
+                            String completeResponseBody = EntityUtils.toString(completeResponse.getEntity());
+                            System.out.println("Complete Response Body: " + completeResponseBody);
+                            return ResponseEntity.ok(completeResponseBody);
+                        }
+                    }
                 }
             }
+        } catch (Exception e) {
+            LOG.error("Error generating token or fetching tasks", e);
+            return ResponseEntity.status(500).body("Error generating token or fetching tasks");
         }
-    } catch (Exception e) {
-        LOG.error("Error generating token or fetching tasks", e);
-        return ResponseEntity.status(500).body("Error generating token or fetching tasks");
     }
-}
 
 private String extractTaskIdFromResponse(String responseBody) {
     try {
