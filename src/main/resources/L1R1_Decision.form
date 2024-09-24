@@ -3,7 +3,7 @@
   "executionPlatformVersion": "8.5.0",
   "exporter": {
     "name": "Camunda Web Modeler",
-    "version": "1fc7bc3"
+    "version": "6e26945"
   },
   "schemaVersion": 16,
   "id": "L1R1_Review_Form",
@@ -12,21 +12,21 @@
       "values": [
         {
           "label": "False Match",
-          "value": "false"
+          "value": "False Match"
         },
         {
           "label": "Match",
-          "value": "true"
+          "value": "Match"
         }
       ],
-      "label": "L1R1 Decision",
+      "label": "L1R1_Decision",
       "type": "radio",
       "layout": {
-        "row": "Row_0f1gqb7",
+        "row": "Row_141kilf",
         "columns": null
       },
-      "id": "Field_1uu4q23",
-      "key": "L1R1_Decision",
+      "id": "Field_1yu1qta",
+      "key": "operator_decision",
       "description": "Level 1 Reviewer 1 Decision",
       "defaultValue": "<none>"
     }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="L1R2_DMN_Decision" name="L1R2_DMN_Decision" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="bfd5b56" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.5.0" camunda:diagramRelationId="cacaafbe-fed5-4344-b35a-402d7d6916bb">
+  <decision id="Decision_zc7waje" name="L2I2_Decision_Table">
+    <decisionTable id="DecisionTable_13yyk4b">
+      <input id="InputClause_0cosp6i" label="operator_decision" biodi:width="192">
+        <inputExpression id="LiteralExpression_1jewyuc" typeRef="string">
+          <text>operator_decision</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0rztbns">
+          <text>"False Match","Global","Regional","Country"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0w366s2" label="Routing" name="Routing" typeRef="string">
+        <outputValues id="UnaryTests_0wcue9r">
+          <text></text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_13i1ha2">
+        <inputEntry id="UnaryTests_08xsyqx">
+          <text>"False Match"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ywiqq0">
+          <text>"Close As False Match"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1libauv">
+        <inputEntry id="UnaryTests_1rc30wb">
+          <text>"Global"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hrva7b">
+          <text>"L3C Global"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rjlskw">
+        <inputEntry id="UnaryTests_1pmvytt">
+          <text>"Regional"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r97oet">
+          <text>"L3C Regional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0itg6va">
+        <inputEntry id="UnaryTests_155dvg9">
+          <text>"Country"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1en88qi">
+          <text>"L3C Country"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_1pe5cdz" dmnElementRef="Decision_zc7waje">
+        <dc:Bounds height="80" width="180" x="170" y="90" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
