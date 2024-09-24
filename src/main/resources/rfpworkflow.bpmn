@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="013bfbb" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0" camunda:diagramRelationId="cf4d86c0-bdd4-4413-bd36-6a4aa4fc5450">
+  <bpmn:process id="rfpworkflow" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_2eeuh0n">{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "013bfbb"
+  },
+  "schemaVersion": 12,
+  "components": [
+    {
+      "values": [
+        {
+          "label": "ApprovedProcess",
+          "value": "approved"
+        },
+        {
+          "label": "DeclineProcess",
+          "value": "declined"
+        }
+      ],
+      "label": "Select a process",
+      "type": "select",
+      "layout": {
+        "row": "Row_1idi1px",
+        "columns": null
+      },
+      "id": "Field_0dyq11j",
+      "key": "Approval",
+      "searchable": false,
+      "disabled": false,
+      "readonly": false,
+      "defaultValue": "approved"
+    }
+  ],
+  "type": "default",
+  "id": "dropdown"
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_3r3dcqn">{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "013bfbb"
+  },
+  "schemaVersion": 12,
+  "components": [
+    {
+      "values": [
+        {
+          "label": "ApprovedProcess",
+          "value": "approved"
+        },
+        {
+          "label": "DeclineProcess",
+          "value": "declined"
+        }
+      ],
+      "label": "Select a process",
+      "type": "select",
+      "layout": {
+        "row": "Row_1idi1px",
+        "columns": null
+      },
+      "id": "Field_0dyq11j",
+      "key": "Approval",
+      "searchable": false,
+      "disabled": false,
+      "readonly": false,
+      "defaultValue": "approved"
+    }
+  ],
+  "type": "default",
+  "id": "dropdown"
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_1cqhlu3">{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "013bfbb"
+  },
+  "schemaVersion": 12,
+  "components": [
+    {
+      "values": [
+        {
+          "label": "ApprovedProcess",
+          "value": "approved"
+        },
+        {
+          "label": "DeclineProcess",
+          "value": "declined"
+        }
+      ],
+      "label": "Select a process",
+      "type": "select",
+      "layout": {
+        "row": "Row_1idi1px",
+        "columns": null
+      },
+      "id": "Field_0dyq11j",
+      "key": "Approval",
+      "searchable": false,
+      "disabled": false,
+      "readonly": false,
+      "defaultValue": "&lt;none&gt;"
+    }
+  ],
+  "type": "default",
+  "id": "dropdown"
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="Event_0nwe43j">
+      <bpmn:outgoing>Flow_1rnl6li</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1rnl6li" sourceRef="Event_0nwe43j" targetRef="Activity_0mtf9s0" />
+    <bpmn:exclusiveGateway id="Gateway_04z339w">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1gwaioi</bpmn:incoming>
+      <bpmn:outgoing>rfpvalueislessthan2000</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0antfzt</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1gwaioi" sourceRef="Activity_1s3j74b" targetRef="Gateway_04z339w" />
+    <bpmn:userTask id="Activity_0fxrowt" name="RFQ Review by Project &#10;Engineer">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_1cqhlu3" />
+        <zeebe:ioMapping>
+          <zeebe:input target="InputVariable_2fk7i65" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>rfpvalueislessthan2000</bpmn:incoming>
+      <bpmn:outgoing>Flow_03smb01</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="rfpvalueislessthan2000" name="rfpvalue  &#60;=  2000" sourceRef="Gateway_04z339w" targetRef="Activity_0fxrowt">
+      <bpmn:extensionElements />
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=rfpvalue &lt;= 2000</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Approval">
+      <bpmn:incoming>Flow_03smb01</bpmn:incoming>
+      <bpmn:outgoing>approve</bpmn:outgoing>
+      <bpmn:outgoing>decline</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_03smb01" sourceRef="Activity_0fxrowt" targetRef="Approval" />
+    <bpmn:endEvent id="Event_0dcsoxk" name="RFP Approved">
+      <bpmn:incoming>approve</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="approve" sourceRef="Approval" targetRef="Event_0dcsoxk">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "approved"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_0r8zg7n" name="RFP Rejected">
+      <bpmn:incoming>decline</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="decline" sourceRef="Approval" targetRef="Event_0r8zg7n">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "declined"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0antfzt" name="rfpvalue &#62;= 2000" sourceRef="Gateway_04z339w" targetRef="Gateway_1rauas6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=rfpvalue &gt;= 2000</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_1gmkc88" name="RFQ Review by Project &#10;Engineer">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_2eeuh0n" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>to-project-manager</bpmn:incoming>
+      <bpmn:outgoing>Flow_05nw1uz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_05nw1uz" sourceRef="Activity_1gmkc88" targetRef="Approval2" />
+    <bpmn:exclusiveGateway id="Approval2">
+      <bpmn:incoming>Flow_05nw1uz</bpmn:incoming>
+      <bpmn:outgoing>approve2</bpmn:outgoing>
+      <bpmn:outgoing>decline2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_0436t5y" name="RFP Approved">
+      <bpmn:incoming>approve2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="approve2" sourceRef="Approval2" targetRef="Event_0436t5y">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "approved"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1hirovz" name="RFP Rejected">
+      <bpmn:incoming>decline2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:businessRuleTask id="Activity_1s3j74b" name="Decide approval level">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="RFPApprovalby" resultVariable="Approval" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jofgxd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gwaioi</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="decline2" sourceRef="Approval2" targetRef="Event_1hirovz">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "declined"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:parallelGateway id="Gateway_1rauas6">
+      <bpmn:incoming>Flow_0antfzt</bpmn:incoming>
+      <bpmn:outgoing>to-project-manager</bpmn:outgoing>
+      <bpmn:outgoing>to-project-engineer</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="to-project-manager" sourceRef="Gateway_1rauas6" targetRef="Activity_1gmkc88" />
+    <bpmn:userTask id="Activity_17mjmp8" name="RFQ Review by Project &#10;Manager">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_3r3dcqn" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>to-project-engineer</bpmn:incoming>
+      <bpmn:outgoing>Flow_1452z6j</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="to-project-engineer" sourceRef="Gateway_1rauas6" targetRef="Activity_17mjmp8" />
+    <bpmn:exclusiveGateway id="Approval3">
+      <bpmn:incoming>Flow_1452z6j</bpmn:incoming>
+      <bpmn:outgoing>approve3</bpmn:outgoing>
+      <bpmn:outgoing>decline3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1452z6j" sourceRef="Activity_17mjmp8" targetRef="Approval3" />
+    <bpmn:endEvent id="Event_08jhsp4" name="RFP Approved">
+      <bpmn:incoming>approve3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="approve3" sourceRef="Approval3" targetRef="Event_08jhsp4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "approved"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_117fmf6" name="RFP Rejected">
+      <bpmn:incoming>decline3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="decline3" sourceRef="Approval3" targetRef="Event_117fmf6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=Approval = "declined"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jofgxd" sourceRef="Activity_0mtf9s0" targetRef="Activity_1s3j74b" />
+    <bpmn:serviceTask id="Activity_0mtf9s0" name="Determine task assignments">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="taskinfo" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1rnl6li</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jofgxd</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="rfpworkflow">
+      <bpmndi:BPMNShape id="Event_0nwe43j_di" bpmnElement="Event_0nwe43j">
+        <dc:Bounds x="152" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_04z339w_di" bpmnElement="Gateway_04z339w" isMarkerVisible="true">
+        <dc:Bounds x="645" y="185" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="549" y="200" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0fxrowt_di" bpmnElement="Activity_0fxrowt">
+        <dc:Bounds x="890" y="100" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1f9yxh8_di" bpmnElement="Approval" isMarkerVisible="true">
+        <dc:Bounds x="1035" y="115" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0dcsoxk_di" bpmnElement="Event_0dcsoxk">
+        <dc:Bounds x="1232" y="62" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1214" y="105" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0r8zg7n_di" bpmnElement="Event_0r8zg7n">
+        <dc:Bounds x="1242" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1226" y="225" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gmkc88_di" bpmnElement="Activity_1gmkc88">
+        <dc:Bounds x="890" y="350" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1wzu32v_di" bpmnElement="Approval2" isMarkerVisible="true">
+        <dc:Bounds x="1115" y="395" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0436t5y_di" bpmnElement="Event_0436t5y">
+        <dc:Bounds x="1462" y="362" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1444" y="405" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hirovz_di" bpmnElement="Event_1hirovz">
+        <dc:Bounds x="1462" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1446" y="505" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1s0dwoi_di" bpmnElement="Activity_1s3j74b">
+        <dc:Bounds x="490" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1rauas6_di" bpmnElement="Gateway_1rauas6">
+        <dc:Bounds x="775" y="395" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17mjmp8_di" bpmnElement="Activity_17mjmp8">
+        <dc:Bounds x="890" y="490" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ag6vx4_di" bpmnElement="Approval3" isMarkerVisible="true">
+        <dc:Bounds x="1055" y="505" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_08jhsp4_di" bpmnElement="Event_08jhsp4">
+        <dc:Bounds x="1172" y="512" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1154" y="555" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_117fmf6_di" bpmnElement="Event_117fmf6">
+        <dc:Bounds x="1172" y="622" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1156" y="665" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yh5q8s_di" bpmnElement="Activity_0mtf9s0">
+        <dc:Bounds x="280" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1rnl6li_di" bpmnElement="Flow_1rnl6li">
+        <di:waypoint x="188" y="210" />
+        <di:waypoint x="280" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gwaioi_di" bpmnElement="Flow_1gwaioi">
+        <di:waypoint x="590" y="210" />
+        <di:waypoint x="645" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k1lm8s_di" bpmnElement="rfpvalueislessthan2000">
+        <di:waypoint x="670" y="185" />
+        <di:waypoint x="670" y="140" />
+        <di:waypoint x="890" y="140" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="690" y="153" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03smb01_di" bpmnElement="Flow_03smb01">
+        <di:waypoint x="990" y="140" />
+        <di:waypoint x="1035" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kfaqih_di" bpmnElement="approve">
+        <di:waypoint x="1060" y="115" />
+        <di:waypoint x="1060" y="80" />
+        <di:waypoint x="1232" y="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1058" y="95" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03bfed1_di" bpmnElement="decline">
+        <di:waypoint x="1060" y="165" />
+        <di:waypoint x="1060" y="200" />
+        <di:waypoint x="1242" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1081" y="180" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0antfzt_di" bpmnElement="Flow_0antfzt">
+        <di:waypoint x="670" y="235" />
+        <di:waypoint x="670" y="420" />
+        <di:waypoint x="775" y="420" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="676" y="393" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05nw1uz_di" bpmnElement="Flow_05nw1uz">
+        <di:waypoint x="990" y="390" />
+        <di:waypoint x="1063" y="390" />
+        <di:waypoint x="1063" y="420" />
+        <di:waypoint x="1115" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0x0q434_di" bpmnElement="approve2">
+        <di:waypoint x="1140" y="395" />
+        <di:waypoint x="1140" y="290" />
+        <di:waypoint x="1480" y="290" />
+        <di:waypoint x="1480" y="362" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09eczdn_di" bpmnElement="decline2">
+        <di:waypoint x="1140" y="445" />
+        <di:waypoint x="1140" y="480" />
+        <di:waypoint x="1462" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lgyyfp_di" bpmnElement="to-project-manager">
+        <di:waypoint x="800" y="395" />
+        <di:waypoint x="800" y="380" />
+        <di:waypoint x="890" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06lxgu2_di" bpmnElement="to-project-engineer">
+        <di:waypoint x="800" y="445" />
+        <di:waypoint x="800" y="530" />
+        <di:waypoint x="890" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1452z6j_di" bpmnElement="Flow_1452z6j">
+        <di:waypoint x="990" y="530" />
+        <di:waypoint x="1055" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17ad5xg_di" bpmnElement="approve3">
+        <di:waypoint x="1105" y="530" />
+        <di:waypoint x="1172" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i16qbh_di" bpmnElement="decline3">
+        <di:waypoint x="1080" y="555" />
+        <di:waypoint x="1080" y="640" />
+        <di:waypoint x="1172" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jofgxd_di" bpmnElement="Flow_0jofgxd">
+        <di:waypoint x="380" y="210" />
+        <di:waypoint x="490" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

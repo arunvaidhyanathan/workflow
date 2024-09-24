@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="purchaseamount" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="79ad570" camunda:diagramRelationId="02621c52-d0d7-4fbd-a607-4e27018abe8b" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <decision id="RFPApprovalby" name="Purchase Amount">
+    <decisionTable id="DecisionTable_1tfukc3" hitPolicy="FIRST">
+      <input id="Input_1" label="RFP Value" biodi:width="191">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>rfpvalue</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1oeql4z" label="ApprovalBy" name="ApprovalBy" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_0j14wdh">
+          <text></text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_0wf04ri" label="Approval" name="Approval" typeRef="string" biodi:width="192" />
+      <rule id="DecisionRule_0geehsr">
+        <inputEntry id="UnaryTests_1gxntvp">
+          <text>&lt;= 2000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gp311s">
+          <text>"Project Engineer"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n2mbnn">
+          <text>approved</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jbhanb">
+        <inputEntry id="UnaryTests_0tjmj5b">
+          <text>&gt;= 2000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s2yz1o">
+          <text>"Project Manager"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kk2hqf">
+          <text>declined</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="RFPApprovalby">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

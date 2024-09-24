@@ -54,7 +54,7 @@ public class WorkflowController {
             // Generate JWT
             HttpPost tokenRequest = new HttpPost("http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token");
             tokenRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            StringEntity tokenParams = new StringEntity("client_id=demo-app&client_secret=AdDfPHtFfn8mcfo1GTToSXhwwV4KN0Nk&grant_type=client_credentials");
+            StringEntity tokenParams = new StringEntity("client_id=demo-app&client_secret=xtGHqu0murvFS3MBSBdkhy9SrmDARfRh&grant_type=client_credentials");
             tokenRequest.setEntity(tokenParams);
 
             try (CloseableHttpResponse tokenResponse = httpClient.execute(tokenRequest)) {
@@ -84,7 +84,7 @@ public class WorkflowController {
                         HttpPatch completeRequest = new HttpPatch("http://localhost:8082/v1/tasks/" + taskId + "/complete");
                         completeRequest.setHeader("Authorization", "Bearer " + token);
                         ContentType completeContentType = ContentType.APPLICATION_JSON;
-                        StringEntity completeBody = new StringEntity("{\n  \"name\": \"Match\",\n  \"allowOverrideAssignment\": true\n}", completeContentType);
+                        StringEntity completeBody = new StringEntity("{\n  \"name\": \"False_Match\",\n  \"value\": false\n}", completeContentType);
                         completeRequest.setEntity(completeBody);
                         try (CloseableHttpResponse completeResponse = httpClient.execute(completeRequest)) {
                             String completeResponseBody = EntityUtils.toString(completeResponse.getEntity());
